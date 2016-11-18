@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FF">
+    android:background="#424248">
 
     <ImageView
         android:layout_width="192dp"
@@ -12,6 +12,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="84dp"
         android:id="@+id/imageView"
+        android:scaleType="centerInside"
         android:src="@drawable/logo"/>
 
     <Button

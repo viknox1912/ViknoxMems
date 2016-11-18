@@ -9,5 +9,9 @@
 
     <include
         layout="@layout/empty_mems"
-        />
+         />
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/id_toolbar"
+        android:visibility="visible" />
 </RelativeLayout>
