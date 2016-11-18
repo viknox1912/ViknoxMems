@@ -7,6 +7,12 @@
 
     tools:context="com.example.viknox.viknoxmems.ActivityMain">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/id_toolbar"
+        android:id="@+id/bg_image"/>
+
     <include
         layout="@layout/empty_mems"
          />
