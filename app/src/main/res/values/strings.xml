@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ViknoxMems</string>
+    <string name="str_add_memmo">Add Memo</string>
 </resources>
