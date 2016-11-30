@@ -17,14 +17,15 @@ public class ActivityMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toobar = (Toolbar) findViewById(R.id.id_toolbar);
-        setSupportActionBar(toobar);
+
         loadUI();
 
 
     }
 
     private void loadUI() {
+        toobar = (Toolbar) findViewById(R.id.id_toolbar);
+        setSupportActionBar(toobar);
         ImageView backGroundImage = (ImageView) findViewById(R.id.bg_image);
         Glide.with(this)
                 .load("http://media.istockphoto.com/photos/abstract-cubes-retro-styled-colorful-background-picture-id508795172?k=6&m=508795172&s=170667a&w=0&h=uxKISA4xMNkrBCcEFhdN5mm-ZDv8LFzWUhMMmG3CNuQ=")
@@ -34,6 +35,12 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     public void showDialog(View view) {
+        ShowDialogAdd();
 
+    }
+
+    private void ShowDialogAdd() {
+        DialogAdd dialogAdd = new DialogAdd();
+        dialogAdd.show(getSupportFragmentManager(),"Add");
     }
 }
