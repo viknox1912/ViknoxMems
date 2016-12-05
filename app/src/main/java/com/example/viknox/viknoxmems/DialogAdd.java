@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.example.viknox.viknoxmems.Beans.Mems;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
