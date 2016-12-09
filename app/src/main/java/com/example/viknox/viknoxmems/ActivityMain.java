@@ -14,7 +14,9 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.viknox.viknoxmems.Beans.Mems;
 import com.example.viknox.viknoxmems.adapters.AdapterMems;
+import com.example.viknox.viknoxmems.adapters.CompletedListener;
 import com.example.viknox.viknoxmems.adapters.Divider;
+import com.example.viknox.viknoxmems.adapters.MarkListener;
 import com.example.viknox.viknoxmems.adapters.SimpleCallback;
 import com.example.viknox.viknoxmems.widgets.CustomRecyclerView;
 
@@ -64,7 +66,7 @@ public class ActivityMain extends AppCompatActivity {
         LinearLayoutManager lmanager = new LinearLayoutManager(this);
         viewRecycler.setLayoutManager(lmanager);
         viewRecycler.addItemDecoration(new Divider(this,LinearLayoutManager.VERTICAL ));
-        mAdapter = new AdapterMems(this,mRealm,mResults);
+        mAdapter = new AdapterMems(this,mRealm,mResults,mMarkListener);
         viewRecycler.setAdapter(mAdapter);
         SimpleCallback callback = new SimpleCallback(mAdapter);
         ItemTouchHelper helper = new ItemTouchHelper(callback);
@@ -101,4 +103,29 @@ public class ActivityMain extends AppCompatActivity {
         DialogAdd dialogAdd = new DialogAdd();
         dialogAdd.show(getSupportFragmentManager(),"Add");
     }
+    private void ShowDialogCompleted(int position) {
+        DialogCompleted dialogCompleted = new DialogCompleted();
+        Bundle bundle = new Bundle();
+        bundle.putInt("POSITION",position);
+        dialogCompleted.setCompletedListener(mCompletedListener);
+        dialogCompleted.setArguments(bundle);
+        dialogCompleted.show(getSupportFragmentManager(),"Completed");
+
+    }
+    private CompletedListener mCompletedListener = new CompletedListener() {
+        @Override
+        public void onComplete(int position) {
+            mAdapter.markComplete(position);
+
+
+        }
+    };
+    private MarkListener mMarkListener = new MarkListener() {
+        @Override
+        public void onmMark(int position) {
+            ShowDialogCompleted(position);
+
+        }
+
+    };
 }

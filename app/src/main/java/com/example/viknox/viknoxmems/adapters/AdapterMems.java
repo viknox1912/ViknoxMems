@@ -23,14 +23,16 @@ import io.realm.RealmResults;
 public class AdapterMems extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements SwipeListener {
     public static final int ITEM = 0;
     public static final int FOOTER = 1;
+    private  MarkListener mMarkListener;
 
     private LayoutInflater mInflater;
     private RealmResults<Mems> mResults;
     private Realm mRealm;
-    public AdapterMems(Context context, Realm realm, RealmResults<Mems> results){
+    public AdapterMems(Context context, Realm realm, RealmResults<Mems> results,MarkListener markListener){
        mInflater = LayoutInflater.from(context);
         mRealm = realm;
         update(results);
+        mMarkListener = markListener;
     }
     public void update(RealmResults<Mems> reults){
         mResults = reults;
@@ -62,8 +64,8 @@ public class AdapterMems extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
         }else{
        View view =  mInflater.inflate(R.layout.row_mem, parent,false);
-            MemsHolder itemHolder = new MemsHolder(view);
-            return itemHolder;
+
+            return new MemsHolder(view,mMarkListener);
 
         }
 
@@ -100,12 +102,30 @@ public class AdapterMems extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     }
 
-    public static class MemsHolder extends RecyclerView.ViewHolder{
+    public void markComplete(int position) {
+        if (position < mResults.size()){
+        mRealm.beginTransaction();
+        mResults.get(position).setCompleted(true);
+        mRealm.commitTransaction();
+        notifyItemChanged(position);
+        }
+    }
+
+    public static class MemsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final MarkListener mMarkListener;
         TextView mTextWhat;
 
-        public MemsHolder(View itemView) {
+        public MemsHolder(View itemView, MarkListener listener) {
             super(itemView);
+            itemView.setOnClickListener(this);
             mTextWhat = (TextView)itemView.findViewById(R.id.tv_what);
+            mMarkListener = listener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            mMarkListener.onmMark(getAdapterPosition());
+
         }
     }
     public static class FooterHolder extends RecyclerView.ViewHolder{
